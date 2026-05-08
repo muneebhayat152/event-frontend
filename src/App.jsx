@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Events from "./pages/Events";
 import Navbar from "./components/Navbar";
+import BookingProgressBanner from "./components/BookingProgressBanner";
 
 import Register from "./pages/Register";
 
@@ -70,6 +71,7 @@ function Layout({ children }) {
       </div>
 
       <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <BookingProgressBanner />
         {children}
       </div>
     </div>

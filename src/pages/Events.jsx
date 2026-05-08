@@ -79,6 +79,7 @@ export default function Events() {
       );
 
       toast.success("Booking request submitted. Waiting for admin approval ✅");
+      window.dispatchEvent(new Event("ems-bookings-changed"));
 
     } catch (error) {
       toast.error(error.response?.data?.message || "Booking failed ❌");
