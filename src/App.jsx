@@ -1,16 +1,18 @@
+import { Suspense, lazy } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Events from "./pages/Events";
-import MyBookings from "./pages/MyBookings";
-import CreateEvent from "./pages/CreateEvent";
-import Admin from "./pages/Admin";
-import EventDetails from "./pages/EventDetails";
 import Navbar from "./components/Navbar";
 
 import Register from "./pages/Register";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+const MyBookings = lazy(() => import("./pages/MyBookings"));
+const CreateEvent = lazy(() => import("./pages/CreateEvent"));
+const Admin = lazy(() => import("./pages/Admin"));
+const EventDetails = lazy(() => import("./pages/EventDetails"));
 
 function ProtectedRoute({ children }) {
   const token = localStorage.getItem("token");
@@ -74,6 +76,14 @@ function Layout({ children }) {
   );
 }
 
+function PageLoader() {
+  return (
+    <div className="ems-card p-6 text-center text-sm ems-text-secondary">
+      Loading page...
+    </div>
+  );
+}
+
 function App() {
   return (
     <BrowserRouter>
@@ -102,7 +112,9 @@ function App() {
           element={
             <ProtectedRoute>
               <Layout>
-                <EventDetails />
+                <Suspense fallback={<PageLoader />}>
+                  <EventDetails />
+                </Suspense>
               </Layout>
             </ProtectedRoute>
           }
@@ -114,7 +126,9 @@ function App() {
             <ProtectedRoute>
               <AdminRoute>
                 <Layout>
-                  <CreateEvent />
+                  <Suspense fallback={<PageLoader />}>
+                    <CreateEvent />
+                  </Suspense>
                 </Layout>
               </AdminRoute>
             </ProtectedRoute>
@@ -126,7 +140,9 @@ function App() {
           element={
             <ProtectedRoute>
               <Layout>
-                <MyBookings />
+                <Suspense fallback={<PageLoader />}>
+                  <MyBookings />
+                </Suspense>
               </Layout>
             </ProtectedRoute>
           }
@@ -138,7 +154,9 @@ function App() {
             <ProtectedRoute>
               <AdminRoute>
                 <Layout>
-                  <CreateEvent />
+                  <Suspense fallback={<PageLoader />}>
+                    <CreateEvent />
+                  </Suspense>
                 </Layout>
               </AdminRoute>
             </ProtectedRoute>
@@ -152,7 +170,9 @@ function App() {
             <ProtectedRoute>
               <AdminRoute>
                 <Layout>
-                  <Admin />
+                  <Suspense fallback={<PageLoader />}>
+                    <Admin />
+                  </Suspense>
                 </Layout>
               </AdminRoute>
             </ProtectedRoute>
