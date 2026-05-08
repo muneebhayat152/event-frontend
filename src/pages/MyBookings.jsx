@@ -6,20 +6,6 @@ import "react-toastify/dist/ReactToastify.css";
 export default function MyBookings() {
   const [bookings, setBookings] = useState([]);
 
-  const plainHelp = (status) => {
-    const value = String(status || "pending_admin").toLowerCase();
-    if (value === "approved") {
-      return "Your seats are confirmed. The event list shows how many seats are still free for others.";
-    }
-    if (value === "rejected") {
-      return "This request was not accepted. You can try another event or contact support if needed.";
-    }
-    if (value === "pending_super_admin") {
-      return "Still waiting for a final yes. Please be patient.";
-    }
-    return "Waiting for an admin to approve your request. Nothing is taken from the event until then.";
-  };
-
   const normalizeStatus = (status) => {
     const value = String(status || "pending_admin").toLowerCase();
     if (value === "pending_super_admin") {
@@ -91,16 +77,6 @@ export default function MyBookings() {
         My Bookings
       </h2>
 
-      <div className="mb-6 rounded-xl border border-amber-300/40 bg-amber-50 px-4 py-3 text-sm text-amber-800 dark:border-amber-300/20 dark:bg-amber-500/10 dark:text-amber-200">
-        <p className="font-semibold">How this page works (simple)</p>
-        <p className="mt-1">
-          After you book, your request appears here. If it says waiting, an admin
-          has not said yes yet — event seats for everyone stay the same until
-          you are approved. If it says confirmed, your seats are counted. If it
-          says not approved, those seats are not kept for you.
-        </p>
-      </div>
-
       {bookings.length === 0 && (
         <p className="mt-10 text-center text-slate-600 dark:text-slate-400">
           No bookings found
@@ -128,9 +104,6 @@ export default function MyBookings() {
                     {normalizeStatus(b.status)}
                   </span>
                 </span>
-                <p className="mt-2 max-w-md text-xs leading-relaxed ems-text-secondary">
-                  {plainHelp(b.status)}
-                </p>
               </div>
 
               <div className="flex items-center gap-3">
