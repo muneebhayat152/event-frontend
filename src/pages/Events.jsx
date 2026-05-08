@@ -78,7 +78,7 @@ export default function Events() {
         }
       );
 
-      toast.success("Booking successful ✅");
+      toast.success("Booking request submitted. Waiting for admin approval ✅");
 
     } catch (error) {
       toast.error(error.response?.data?.message || "Booking failed ❌");

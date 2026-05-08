@@ -6,6 +6,31 @@ import "react-toastify/dist/ReactToastify.css";
 export default function MyBookings() {
   const [bookings, setBookings] = useState([]);
 
+  const normalizeStatus = (status) => {
+    const value = String(status || "pending_admin").toLowerCase();
+    if (value === "pending_super_admin") {
+      return "Pending Super Admin Approval";
+    }
+    if (value === "approved") {
+      return "Approved";
+    }
+    if (value === "rejected") {
+      return "Rejected";
+    }
+    return "Pending Admin Approval";
+  };
+
+  const statusBadgeClass = (status) => {
+    const value = String(status || "pending_admin").toLowerCase();
+    if (value === "approved") {
+      return "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-200";
+    }
+    if (value === "rejected") {
+      return "bg-rose-100 text-rose-700 dark:bg-rose-500/20 dark:text-rose-200";
+    }
+    return "bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-200";
+  };
+
   const handleCancel = async (id) => {
     try {
       const token = localStorage.getItem("token");
@@ -51,6 +76,10 @@ export default function MyBookings() {
         My Bookings
       </h2>
 
+      <div className="mb-6 rounded-xl border border-amber-300/40 bg-amber-50 px-4 py-3 text-sm text-amber-800 dark:border-amber-300/20 dark:bg-amber-500/10 dark:text-amber-200">
+        Booking requests stay pending until admin approval. Event inventory updates only after booking is approved.
+      </div>
+
       {bookings.length === 0 && (
         <p className="mt-10 text-center text-slate-600 dark:text-slate-400">
           No bookings found
@@ -71,8 +100,12 @@ export default function MyBookings() {
             <div className="flex justify-between items-center mt-5">
               <div className="flex flex-col">
                 <span className="text-sm ems-text-secondary">Seats Booked</span>
-                <span className="text-xs ems-text-secondary">
-                  Status: {b.status || "Pending_Admin"}
+                <span className="text-xs ems-text-secondary mt-2">
+                  Status:
+                  {" "}
+                  <span className={`rounded-full px-2 py-1 font-semibold ${statusBadgeClass(b.status)}`}>
+                    {normalizeStatus(b.status)}
+                  </span>
                 </span>
               </div>
 
