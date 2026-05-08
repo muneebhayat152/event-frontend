@@ -1,0 +1,117 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --ems-body-bg: #eef4ff;
+    --ems-text-primary: #0f172a;
+    --ems-text-secondary: #334155;
+    --ems-border-soft: rgba(15, 23, 42, 0.12);
+    --ems-card-bg: rgba(255, 255, 255, 0.86);
+    --ems-nav-bg: rgba(248, 250, 252, 0.88);
+    --ems-input-bg: rgba(255, 255, 255, 0.95);
+    --ems-input-border: rgba(148, 163, 184, 0.5);
+    color-scheme: light;
+  }
+
+  .dark {
+    --ems-body-bg: #020617;
+    --ems-text-primary: #f8fafc;
+    --ems-text-secondary: #cbd5e1;
+    --ems-border-soft: rgba(255, 255, 255, 0.12);
+    --ems-card-bg: rgba(255, 255, 255, 0.05);
+    --ems-nav-bg: rgba(2, 6, 23, 0.82);
+    --ems-input-bg: rgba(15, 23, 42, 0.82);
+    --ems-input-border: rgba(255, 255, 255, 0.15);
+    color-scheme: dark;
+  }
+
+  body {
+    @apply min-h-screen antialiased transition-colors duration-300;
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
+    color: var(--ems-text-primary);
+    background-color: var(--ems-body-bg);
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(59, 130, 246, 0.14), transparent 35%),
+      radial-gradient(circle at 85% 10%, rgba(168, 85, 247, 0.12), transparent 40%),
+      radial-gradient(circle at 50% 100%, rgba(14, 165, 233, 0.12), transparent 40%);
+  }
+
+  body *:not(input):not(textarea):not(option):not(code):not(pre):not(svg):not(path) {
+    text-transform: capitalize;
+  }
+
+  #root {
+    @apply min-h-screen;
+  }
+}
+
+@layer components {
+  .ems-shell {
+    @apply min-h-screen;
+    color: var(--ems-text-primary);
+  }
+
+  .ems-card {
+    @apply rounded-2xl shadow-2xl backdrop-blur-xl transition duration-300;
+    border: 1px solid var(--ems-border-soft);
+    background: var(--ems-card-bg);
+  }
+
+  .ems-input {
+    @apply w-full rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500/35;
+    border: 1px solid var(--ems-input-border);
+    background: var(--ems-input-bg);
+    color: var(--ems-text-primary);
+  }
+
+  .ems-btn-primary {
+    @apply inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-5 py-3 font-semibold text-white transition duration-200 hover:-translate-y-0.5 hover:from-blue-500 hover:to-indigo-500;
+  }
+
+  .ems-btn-secondary {
+    @apply inline-flex items-center justify-center rounded-xl px-5 py-3 font-semibold transition duration-200 hover:-translate-y-0.5;
+    border: 1px solid var(--ems-border-soft);
+    color: var(--ems-text-primary);
+    background: color-mix(in srgb, var(--ems-card-bg) 72%, transparent);
+  }
+
+  .ems-title {
+    font-family: "Plus Jakarta Sans", "Inter", sans-serif;
+  }
+
+  .ems-surface-glow {
+    box-shadow: 0 24px 70px rgba(15, 23, 42, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .ems-fade-in {
+    animation: emsFadeIn 420ms ease-out both;
+  }
+
+  .ems-text-primary {
+    color: var(--ems-text-primary);
+  }
+
+  .ems-text-secondary {
+    color: var(--ems-text-secondary);
+  }
+
+  .ems-nav-surface {
+    border-color: var(--ems-border-soft);
+    background: var(--ems-nav-bg);
+  }
+}
+
+@keyframes emsFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
