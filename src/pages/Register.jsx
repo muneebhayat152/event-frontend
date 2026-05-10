@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../api/axios";
 import { toast } from "react-toastify";
-import { EmsLogoMark } from "../components/EmsBrandLogo";
+import EmsBrandLogo from "../components/EmsBrandLogo";
 import ThemeToggleButton from "../components/ThemeToggleButton";
 
 export default function Register() {
@@ -40,45 +40,32 @@ export default function Register() {
   };
 
   return (
-    <div className="relative flex min-h-dvh w-full flex-col bg-transparent">
-      <div className="pointer-events-none fixed right-3 top-3 z-20 sm:right-5 sm:top-5">
-        <div className="pointer-events-auto">
-          <ThemeToggleButton variant="auth" />
-        </div>
+    <div
+      className="relative flex min-h-dvh w-full items-center px-4 py-12"
+      style={{ justifyContent: "safe center" }}
+    >
+      <div className="absolute right-4 top-4 sm:right-8 sm:top-8">
+        <ThemeToggleButton variant="auth" />
       </div>
 
-      {/* safe center: stay vertically centered when it fits; align to start when it would overflow (avoids top/bottom clipping) */}
-      <div
-        className="flex w-full flex-1 flex-col items-center px-3 py-2 sm:px-4 sm:py-3"
-        style={{ minHeight: "100dvh", justifyContent: "safe center" }}
-      >
-        <div className="mx-auto w-full max-w-md">
-          <form
-            onSubmit={handleRegister}
-            className="ems-card ems-surface-glow ems-fade-in relative w-full space-y-2 overflow-hidden px-4 pb-4 pt-4 sm:px-5 sm:pb-5 sm:pt-4"
-          >
-            {/* Row layout = less vertical space than stacked logo + title */}
-            <div
-              className="flex items-center gap-3 border-b pb-3 sm:gap-3.5 sm:pb-3"
-              style={{ borderColor: "var(--ems-border-soft)" }}
-            >
-              <EmsLogoMark size={40} className="shrink-0 drop-shadow-md" />
-              <div className="min-w-0 flex-1 text-left">
-                <h1 className="ems-title text-[0.95rem] font-bold leading-snug tracking-tight ems-text-primary sm:text-base">
-                  Event Management System
-                </h1>
-                <p className="mt-0.5 text-[11px] leading-tight ems-text-secondary sm:text-xs">
-                  Create your account
-                </p>
-              </div>
-            </div>
+      <div className="w-full max-w-lg">
+        <div className="mb-8 flex justify-center">
+          <EmsBrandLogo size={76} showWordmark subtitle="Create your account" />
+        </div>
 
+        <form
+          onSubmit={handleRegister}
+          className="ems-card ems-surface-glow ems-fade-in relative overflow-hidden p-8 sm:p-10"
+        >
+          <div className="pointer-events-none absolute -top-24 left-1/2 h-44 w-44 -translate-x-1/2 rounded-full bg-blue-500/15 blur-3xl"></div>
+
+          <div className="relative space-y-4">
             <input
               name="name"
               placeholder="Full Name"
               onChange={handleChange}
               autoComplete="name"
-              className="ems-input relative !py-2 text-sm sm:!py-2"
+              className="ems-input relative"
             />
 
             <input
@@ -87,7 +74,7 @@ export default function Register() {
               placeholder="Email Address"
               onChange={handleChange}
               autoComplete="email"
-              className="ems-input relative !py-2 text-sm sm:!py-2"
+              className="ems-input relative"
             />
 
             <input
@@ -96,7 +83,7 @@ export default function Register() {
               placeholder="Password"
               onChange={handleChange}
               autoComplete="new-password"
-              className="ems-input relative !py-2 text-sm sm:!py-2"
+              className="ems-input relative"
             />
 
             <input
@@ -105,28 +92,28 @@ export default function Register() {
               placeholder="Confirm Password"
               onChange={handleChange}
               autoComplete="new-password"
-              className="ems-input relative !py-2 text-sm sm:!py-2"
+              className="ems-input relative"
             />
+          </div>
 
+          <button
+            type="submit"
+            className="ems-btn-primary mt-6 w-full !rounded-2xl !py-3.5"
+          >
+            Register
+          </button>
+
+          <p className="mt-6 text-center text-sm ems-text-secondary">
+            Already have an account?{" "}
             <button
-              type="submit"
-              className="ems-btn-primary w-full !rounded-xl !py-2.5 text-sm font-semibold sm:!py-2.5"
+              type="button"
+              onClick={() => navigate("/")}
+              className="font-semibold text-blue-700 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue-200"
             >
-              Register
+              Login
             </button>
-
-            <p className="pt-0.5 text-center text-[11px] leading-tight ems-text-secondary sm:text-xs">
-              Already have an account?{" "}
-              <button
-                type="button"
-                onClick={() => navigate("/")}
-                className="font-semibold text-blue-700 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue-200"
-              >
-                Login
-              </button>
-            </p>
-          </form>
-        </div>
+          </p>
+        </form>
       </div>
     </div>
   );
