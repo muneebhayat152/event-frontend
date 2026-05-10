@@ -4,6 +4,8 @@ import Login from "./pages/Login";
 import Events from "./pages/Events";
 import Navbar from "./components/Navbar";
 import BookingProgressBanner from "./components/BookingProgressBanner";
+import DocumentTitle from "./components/DocumentTitle";
+import { EmsLogoMark } from "./components/EmsBrandLogo";
 
 import Register from "./pages/Register";
 
@@ -43,8 +45,8 @@ function AdminRoute({ children }) {
     user?.role === "super_admin";
 
   if (!isAdminOrSuperAdmin) {
-  return <Navigate to="/events" />;
-}
+    return <Navigate to="/events" />;
+  }
 
   return children;
 }
@@ -55,17 +57,22 @@ function Layout({ children }) {
       <Navbar />
 
       <div className="mx-auto mt-6 max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="ems-card flex flex-col gap-2 p-5 sm:flex-row sm:items-center sm:justify-between">
-          <h1 className="ems-title text-lg font-semibold tracking-wide ems-text-primary sm:text-xl">
-            Enterprise Event Management Workspace
-          </h1>
-          <div className="flex items-center gap-3">
-            <span className="rounded-full border border-blue-300/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-700 dark:text-blue-200">
-              Management Dashboard
-            </span>
-            <p className="text-sm ems-text-secondary">
-              Plan events, control bookings, and manage users from one place.
-            </p>
+        <div className="ems-card p-5">
+          <div className="flex items-start gap-4 sm:items-center">
+            <EmsLogoMark size={48} className="shrink-0" />
+            <div className="min-w-0 flex-1">
+              <h1 className="ems-title text-lg font-semibold tracking-wide ems-text-primary sm:text-xl">
+                Enterprise Event Management Workspace
+              </h1>
+              <div className="mt-2 flex flex-wrap items-center gap-3">
+                <span className="rounded-full border border-blue-300/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-700 dark:text-blue-200">
+                  Management Dashboard
+                </span>
+                <p className="text-sm ems-text-secondary">
+                  Plan events, control bookings, and manage users from one place.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -90,6 +97,7 @@ function App() {
   return (
     <BrowserRouter>
 
+      <DocumentTitle />
       <ToastContainer />
 
       <Routes>

@@ -2,6 +2,8 @@ import { useState } from "react";
 import API from "../api/axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import EmsBrandLogo from "../components/EmsBrandLogo";
+import ThemeToggleButton from "../components/ThemeToggleButton";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -27,11 +29,13 @@ export default function Login() {
 
   return (
     <div className="relative flex min-h-screen items-center justify-center px-4 py-12">
+      <div className="absolute right-4 top-4 sm:right-8 sm:top-8">
+        <ThemeToggleButton variant="auth" />
+      </div>
+
       <div className="w-full max-w-lg">
-        <div className="mb-5 text-center">
-          <h1 className="ems-title text-3xl font-bold ems-text-primary">
-            Event Management System
-          </h1>
+        <div className="mb-8 flex justify-center">
+          <EmsBrandLogo size={76} showWordmark />
         </div>
 
         <div className="ems-card ems-surface-glow ems-fade-in relative overflow-hidden p-8 sm:p-10">
@@ -52,13 +56,18 @@ export default function Login() {
             />
           </div>
 
-          <button onClick={handleLogin} className="ems-btn-primary mt-6 w-full !rounded-2xl !py-3.5">
+          <button
+            type="button"
+            onClick={handleLogin}
+            className="ems-btn-primary mt-6 w-full !rounded-2xl !py-3.5"
+          >
             Login
           </button>
 
           <p className="mt-6 text-center text-sm ems-text-secondary">
             New User?{" "}
             <button
+              type="button"
               onClick={() => navigate("/register")}
               className="font-semibold text-blue-700 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue-200"
             >

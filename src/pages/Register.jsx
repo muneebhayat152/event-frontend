@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../api/axios";
 import { toast } from "react-toastify";
+import EmsBrandLogo from "../components/EmsBrandLogo";
+import ThemeToggleButton from "../components/ThemeToggleButton";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -32,19 +34,20 @@ export default function Register() {
       toast.success("Registered successfully ✅");
 
       navigate("/events");
-
-    } catch (err) {
+    } catch {
       toast.error("Registration failed ❌");
     }
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center px-4 py-12">
+    <div className="relative flex min-h-screen items-center justify-center px-4 py-12">
+      <div className="absolute right-4 top-4 sm:right-8 sm:top-8">
+        <ThemeToggleButton variant="auth" />
+      </div>
+
       <div className="w-full max-w-lg">
-        <div className="mb-5 text-center">
-          <h1 className="ems-title text-3xl font-bold ems-text-primary">
-            Event Management System
-          </h1>
+        <div className="mb-8 flex justify-center">
+          <EmsBrandLogo size={76} showWordmark />
         </div>
 
         <form
@@ -82,13 +85,17 @@ export default function Register() {
             className="ems-input relative"
           />
 
-          <button className="ems-btn-primary w-full !rounded-2xl !py-3.5">
+          <button
+            type="submit"
+            className="ems-btn-primary w-full !rounded-2xl !py-3.5"
+          >
             Register
           </button>
 
           <p className="text-center text-sm ems-text-secondary">
             Already Have An Account?{" "}
             <button
+              type="button"
               onClick={() => navigate("/")}
               className="font-semibold text-blue-700 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue-200"
             >
