@@ -8,9 +8,12 @@ import ThemeToggleButton from "../components/ThemeToggleButton";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async () => {
+    if (loading) return;
+    setLoading(true);
     try {
       const res = await API.post("/login", {
         email,
@@ -22,8 +25,18 @@ export default function Login() {
 
       toast.success("Welcome back");
       navigate("/events");
-    } catch {
-      toast.error("Login failed. Please check credentials.");
+    } catch (err) {
+      const data = err.response?.data;
+      const msg =
+        (typeof data?.message === "string" && data.message) ||
+        data?.errors?.email?.[0] ||
+        data?.errors?.password?.[0] ||
+        (err.response?.status === 401
+          ? "Invalid email or password. If this is your first time on this computer, use Register first."
+          : "Login failed. Check that the backend is running and try again.");
+      toast.error(msg);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -59,9 +72,10 @@ export default function Login() {
           <button
             type="button"
             onClick={handleLogin}
-            className="ems-btn-primary mt-6 w-full !rounded-2xl !py-3.5"
+            disabled={loading}
+            className="ems-btn-primary mt-6 w-full !rounded-2xl !py-3.5 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            Login
+            {loading ? "Please wait…" : "Login"}
           </button>
 
           <p className="mt-6 text-center text-sm ems-text-secondary">
