@@ -1,9 +1,5 @@
 import axios from "axios";
 
-/**
- * Reads VITE_API_URL from frontend/.env (must restart `npm run dev` after changes).
- * If someone writes http://127.0.0.1:8000 without /api, we append /api so login hits Laravel correctly.
- */
 function normalizeApiBaseUrl() {
   const raw = import.meta.env.VITE_API_URL?.trim();
   if (!raw) {
@@ -18,9 +14,11 @@ function normalizeApiBaseUrl() {
 
 const API = axios.create({
   baseURL: normalizeApiBaseUrl(),
+  headers: {
+    Accept: "application/json",
+  },
 });
 
-// ✅ VERY IMPORTANT (TOKEN)
 API.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
 
@@ -30,5 +28,22 @@ API.interceptors.request.use((config) => {
 
   return config;
 });
+
+API.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const status = error.response?.status;
+    const path = window.location.pathname;
+    const isAuthScreen = path === "/" || path === "/register";
+
+    if (status === 401 && !isAuthScreen && localStorage.getItem("token")) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      window.location.href = "/";
+    }
+
+    return Promise.reject(error);
+  }
+);
 
 export default API;

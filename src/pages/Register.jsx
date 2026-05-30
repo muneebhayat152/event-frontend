@@ -31,11 +31,18 @@ export default function Register() {
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("user", JSON.stringify(res.data.user));
 
-      toast.success("Registered successfully ✅");
+      toast.success("Account created. Welcome!");
 
       navigate("/events");
-    } catch {
-      toast.error("Registration failed ❌");
+    } catch (err) {
+      const data = err.response?.data;
+      const msg =
+        (typeof data?.message === "string" && data.message) ||
+        data?.errors?.email?.[0] ||
+        data?.errors?.password?.[0] ||
+        data?.errors?.name?.[0] ||
+        "Registration failed. Check your details and try again.";
+      toast.error(msg);
     }
   };
 

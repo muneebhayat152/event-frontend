@@ -79,9 +79,12 @@ export default function CreateEvent() {
       }
 
     } catch (err) {
-      console.log(err);
-      setMsg("Error saving event ❌");
-      toast.error("Error saving event ❌");
+      const message =
+        err.response?.data?.message ||
+        err.response?.data?.errors?.title?.[0] ||
+        "Error saving event";
+      setMsg(message);
+      toast.error(message);
     }
   };
 

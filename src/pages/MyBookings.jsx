@@ -47,9 +47,8 @@ export default function MyBookings() {
       toast.success("Booking cancelled ✅");
       window.dispatchEvent(new Event("ems-bookings-changed"));
 
-    } catch (err) {
-      console.log("Cancel error:", err);
-      toast.error("Cancel failed ❌");
+    } catch {
+      toast.error("Cancel failed");
     }
   };
 
@@ -65,8 +64,7 @@ export default function MyBookings() {
       .then((res) => {
         setBookings(res.data.data || []);
       })
-      .catch((err) => {
-        console.log("Booking error:", err);
+      .catch(() => {
         setBookings([]);
       });
   }, []);

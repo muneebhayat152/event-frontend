@@ -1,7 +1,8 @@
 {
-  "name": "frontend",
+  "name": "event-management-system-frontend",
+  "description": "React SPA for Event Management System — REST API client with RBAC admin console",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",

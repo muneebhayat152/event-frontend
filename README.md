@@ -1,16 +1,39 @@
-# React + Vite
+# Event Management System — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React 19 single-page application for the EMS platform.
 
-Currently, two official plugins are available:
+**Live:** [https://muneebhayat152-ems.vercel.app/](https://muneebhayat152-ems.vercel.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Stack
 
-## React Compiler
+- React 19 + Vite 8
+- React Router 7
+- Axios (Sanctum Bearer tokens)
+- Tailwind CSS
+- React Toastify, Recharts (admin analytics)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Setup
 
-## Expanding the ESLint configuration
+```bash
+cp .env.example .env
+npm install
+npm run dev
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Set `VITE_API_URL` to your Laravel API host (see root `README.md`).
+
+## Scripts
+
+| Command | Purpose |
+|---------|---------|
+| `npm run dev` | Local dev server |
+| `npm run build` | Production build (Vercel) |
+| `npm run lint` | ESLint |
+
+## Deploy (Vercel)
+
+- Root directory: `frontend` (if monorepo) or repo root
+- Environment: `VITE_API_URL` = production API URL
+- `vercel.json` handles SPA routing
+
+See the main project README in the parent folder for architecture and API details.
